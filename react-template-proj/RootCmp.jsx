@@ -1,4 +1,5 @@
-import { Home } from './cmps/Home.jsx'
+import { Home } from './pages/Home.jsx'
+import { About } from './pages/About.jsx'
 const { useState } = React
 export function App() {
     const [page, setPage] = useState('books')
@@ -14,8 +15,9 @@ export function App() {
                     </nav>
                 </div>
             </header>
-            <main className="container">
-                <Home /> 
+            <main className="main-continer full main-layout ">
+                {/* <Home />  */}
+                <About />
                 {/* {page === 'home' && <Home />}
                 {page === 'about' && <About />}
                 {page === 'books' && <BooksIndex />} */}

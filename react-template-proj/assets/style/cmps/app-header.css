@@ -1,0 +1,27 @@
+.app-header {
+  background-color: var(--clr1);
+  color: var(--clr1bg);
+  width: 100%;
+}
+.app-header-continer{
+  height: 100px;
+  width: 100%;
+
+}
+.header-logo{
+ width: 120px;
+}
+.header-logo img{
+ width: 100%;
+}
+.app-nav a{
+ font-size: 1.5em;
+ margin-left: 1em;
+ color: var(--gray4);
+}
+
+@media(max-width: 720px) {
+  .app-header {
+    color: var(--gray4);
+  }
+}

@@ -14,6 +14,7 @@ export const bookService = {
   getFilterBy,
   setFilterBy,
   getDefaultFilter,
+  getById,
 };
 
 function query(gFilterBy) {
@@ -44,6 +45,10 @@ function save(book) {
   } else {
     return storageService.post(BOOK_KEY, book);
   }
+}
+
+function getById(bookId) {
+  return storageService.get(BOOK_KEY, bookId)
 }
 
 // function getEmptyBook(title = '', description = '') {

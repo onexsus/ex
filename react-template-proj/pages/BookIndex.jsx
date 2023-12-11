@@ -1,22 +1,23 @@
 import { bookService } from "../services/book.service.js";
 import { BookList } from "../cmps/BookList.jsx";
 import { BookFilter } from "../cmps/BookFilter.jsx";
+import { BookDetails } from "./BookDetails.jsx"
+import { BookEdit } from './BookEdit.jsx'
 
 const { useState, useEffect } = React;
 
 export function BooksIndex() {
   const [books, setBooks] = useState(null);
-  const [selectedBookId, setSelectedBookId] = useState(null);
+  const [isEdit, setIsEdit] = useState(false)
+  // const [selectedBookId, setSelectedBookId] = useState(null);
+  const [selectedBook, setSelectedBook] = useState(null)
   const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter());
 
   useEffect(() => {
-    loadBooks();
-    return () => {
-    };
-  }, [filterBy]);
+    loadBooks()
+}, [filterBy])
 
   function loadBooks() {
-    console.log(filterBy)
     bookService.query(filterBy)
       .then((books) => setBooks(books))
       .catch((err) => console.log("err:", err));
@@ -31,9 +32,22 @@ export function BooksIndex() {
       .catch((err) => console.log("err:", err));
   }
 
-  function onSelectBookId(bookId) {
-    setSelectedBookId(bookId);
-  }
+  function onUpdateBook(bookToSave) {
+    bookService.save(bookToSave)
+        .then((savedBook) => {
+            setSelectedBook(bookToSave)
+            setIsEdit(false)
+            setBooks(prevBooks => prevBooks.map((b) => b.id === savedBook.id ? savedBook : b))
+        })
+}
+function onSelectBook(bookId) {
+  bookService.getById(bookId).then((book) => {
+      setSelectedBook(book)
+  })
+}
+  // function onSelectBookId(bookId) {
+  //   setSelectedBookId(bookId);
+  // }
 
   function onSetFilter(filterBy) {
     setFilterBy(filterBy);
@@ -42,14 +56,35 @@ export function BooksIndex() {
   if (!books) return <div>Loading...</div>;
   return (
     <section className="bookindex flex flex-column align-center ">
+      {!selectedBook &&
       <div className="bookindex-continer">
         <BookFilter filterBy={filterBy} onSetFilter={onSetFilter} />
         <BookList
           books={books}
-          onSelectBookId={onSelectBookId}
+          onSelectBook={onSelectBook}
           onRemoveBook={onRemoveBook}
         />
       </div>
+      }
+      {selectedBook && (
+                <section>
+                    {!isEdit && (
+                        <BookDetails
+                            book={selectedBook}
+                            onGoBack={() => setSelectedBook(null)}
+                            onGoEdit={() => setIsEdit(true)}
+                        />
+                    )}
+
+                    {isEdit && (
+                        <BookEdit
+                            book={selectedBook}
+                            onUpdate={onUpdateBook}
+                            onCancelEdit={() => setIsEdit(false)}
+                        />
+                    )}
+                </section>
+            )}
     </section>
   );
 }

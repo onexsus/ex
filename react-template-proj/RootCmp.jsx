@@ -3,7 +3,7 @@ import { About } from './pages/About.jsx'
 import { BooksIndex } from './pages/BookIndex.jsx'
 const { useState } = React
 export function App() {
-    const [page, setPage] = useState('books')
+    const [page, setPage] = useState('home')
     return (
         <section className="app main-layout">
             <header className="app-header  full main-layout">
@@ -19,10 +19,10 @@ export function App() {
             <main className="main-continer full main-layout ">
                 {/* <Home />  */}
                 {/* <About /> */}
-                <BooksIndex />
-                {/* {page === 'home' && <Home />}
+                {/* <BooksIndex /> */}
+                {page === 'home' && <Home />}
                 {page === 'about' && <About />}
-                {page === 'books' && <BooksIndex />} */}
+                {page === 'books' && <BooksIndex />}
             </main>
         </section>
     )

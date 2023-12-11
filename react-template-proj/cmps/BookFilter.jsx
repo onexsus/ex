@@ -17,34 +17,19 @@ export function BookFilter({ filterBy, onSetFilter }) {
 
     function handleChange({ target }) {
         const field = target.name
-        let value = target.value
-
-        switch (target.type) {
-            case 'number':
-            case 'range':
-                value = +value
-                break;
-
-            case 'checkbox':
-                value = target.checked
-                break
-
-            default:
-                break;
-        }
-
+        let value = (target.value.type==='number') ? +target.value : target.value
         setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
     }
-    const { txt, minPrice } = filterByToEdit
+    const { title, minPrice } = filterByToEdit
     return (
         <section className="books-filter">
             <h2>Filter Our Books</h2>
             <form onSubmit={onSetFilterBy} >
-                <label htmlFor="txt">Name: </label>
-                <input value={txt} onChange={handleChange} type="text" id="txt" name="txt" />
+                <label htmlFor="byTitle">Name: </label>
+                <input value={title} onChange={handleChange} type="text" id="byTitle" name="title" />
 
-                <label htmlFor="minSpeed">minPrice: </label>
-                <input value={minPrice || ''} onChange={handleChange} type="number" id="minPrice" name="minPrice" />
+                <label htmlFor="minPrice">minPrice: </label>
+                <input value={minPrice || 0} onChange={handleChange} type="number" id="minPrice" name="minPrice" />
 
                 <button>Submit</button>
             </form>

@@ -12,4 +12,7 @@
 @import 'cmps/app-header.css';
 @import 'cmps/home.css';
 @import 'cmps/about.css';
+@import 'cmps/book-index.css';
+@import 'cmps/book-list.css';
+@import 'cmps/book-preview.css';
 @import 'cmps/user-msg.css';

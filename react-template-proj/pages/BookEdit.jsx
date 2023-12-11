@@ -30,14 +30,33 @@ export function BookEdit({ book, onUpdate, onCancelEdit }) {
     onUpdate(bookToEdit)
   }
 
+  function getPublisheDate() {
+    const currYear = new Date().getFullYear()
+    let publishedYear = book.publishedDate
+    let diff = currYear - publishedYear
+    if (diff > 10) publishedYear += ' - Veteran Book'
+    else if (diff < 1) publishedYear += ' - NEW!'
+    return publishedYear
+  }
+
+  function getPageCount() {
+    // Switch case is fine
+    let pageCount = book.pageCount
+    if (book.pageCount > 500) pageCount += ' - Long reading'
+    else if (book.pageCount > 200) pageCount += ' - Decent reading'
+    else if (book.pageCount < 100) pageCount += ' - Light rading'
+    return pageCount
+  }
+
   
 
   return (
     <section className="book-details-container">
         <div className="book-details-title">{book.title}</div>
         <div className="book-thumbnail-container">
-            <img src={book.thumbnail}/>
-        </div>
+          {book.listPrice.isOnSale && <div className="book-details-on-sale">On-sale!</div>}
+              <img src={book.thumbnail}/>
+          </div>
          <div className="book-details">
         <div className="book-details-info">
 
@@ -54,6 +73,11 @@ export function BookEdit({ book, onUpdate, onCancelEdit }) {
                 />
               </span>
             </div>
+            
+            <div className="book-details-info-row">
+                    <span className="book-details-info-title">Year publish: </span>
+                    <span className="book-details-info-text">{getPublisheDate()}</span>
+                </div>
 
             <div className="book-details-info-row">
                 <span className="book-details-info-title">Author: </span>
@@ -65,9 +89,9 @@ export function BookEdit({ book, onUpdate, onCancelEdit }) {
                 <span className="book-details-info-text">{book.categories}</span>
             </div>
 
-            <div className="book-details-info-row">
-                <span className="book-details-info-title">Pages: </span>
-                <span className="book-details-info-text">{book.pageCount}</span>
+            <div className='book-details-info-row'>
+              <span className='book-details-info-title'>Pages:</span>
+              <span className='book-details-info-text'>{getPageCount()}</span>
             </div>
 
             <div className='book-details-info-row'>

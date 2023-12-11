@@ -25,7 +25,27 @@ go-edit-btn */
 .book-thumbnail-container{
   grid-column: 1;
 }
+.book-thumbnail-container {
+  position: relative;
+  overflow: hidden;
+}
+.book-details-on-sale {
+  background-color: white;
+  position: absolute;
+  top: 40px;
+  left: -90px;
+  border: 2px solid black;
+  color: green;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 0.5rem;
+  width: 300px;
+  transform: rotate(-45deg);
+}
+
 .book-thumbnail-container img{
+  display: block;
   width: 100%;
   height: 100%;
 }
@@ -98,4 +118,11 @@ go-edit-btn */
 }
 .cancel-edit-btn:hover{
   background-color: rgb(117, 152, 204);
+}
+
+.book-details-info-row span .red{
+  color: red;
+}
+.book-details-info-row span .green{
+  color: green;
 }

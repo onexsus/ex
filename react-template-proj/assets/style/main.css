@@ -17,3 +17,8 @@
 @import 'cmps/book-preview.css';
 @import 'cmps/book-details.css';
 @import 'cmps/user-msg.css';
+@import 'cmps/review-list.css';
+@import 'cmps/review-preview.css';
+@import 'cmps/add-review.css';
+@import 'cmps/star-rating.css';
+@import 'cmps/accordion.css';

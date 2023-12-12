@@ -24,7 +24,7 @@ export function BookEdit() {
             navigate('/')
         })
 }
-  // const regionNames = new Intl.DisplayNames(['en'], { type: 'language' })
+
 
   function handleChange({ target }) {
     let { value, name: field } = target

@@ -1,10 +1,16 @@
 
 import { bookService } from "../services/book.service.js"
+import { AddReview } from '../cmps/AddReview.jsx'
+import { ReviewList } from '../cmps/ReviewList.jsx'
+import { Accordion } from '../cmps/Accordion.jsx'
+import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
+
 const { useParams, useNavigate, Link } = ReactRouterDOM
 const { useState, useEffect } = React
 
 export function BookDetails() {
     const [book, setBook] = useState(null)
+    const [isReview, setIsReview] = useState(false)
     const params = useParams()
     const navigate = useNavigate()
 
@@ -26,6 +32,33 @@ export function BookDetails() {
         navigate('/books')
         // navigate(-1)
     }
+
+    function onAddReview(reviewToAdd) {
+        console.log('review to add', reviewToAdd);
+        bookService.addReview(book.id, reviewToAdd)
+          .then(updatedBook => {
+            setBook(updatedBook)
+            setIsReview(false)
+            showSuccessMsg('Review saved successfully')
+          })
+          .catch(err => {
+            console.log('err:', err)
+            showErrorMsg('Error saving review')
+          })
+      }
+    
+      function onRemoveReview(reviewId) {
+        bookService.removeReview(book.id, reviewId)
+          .then(savedBook => {
+            setBook(savedBook)
+            showSuccessMsg('Review deleted successfully')
+          })
+          .catch(err => {
+            console.log('err:', err)
+            showErrorMsg('Error deleting review')
+            navigate('/book')
+          })
+      }
 
     console.log('Render');
 
@@ -104,6 +137,20 @@ console.log(book.listPrice.isOnSale)
               <div className="book-details-info-row">
                   <span className="book-details-info-title">Description: </span><span className="book-details-info-text">{book.description}</span>
               </div>
+              </div>
+              <div className="accordion-review-add">
+
+              <Accordion title="Add Review">
+               <AddReview onAddReview={onAddReview} />
+              </Accordion>
+              </div>
+              <div className="accordion-reviews">
+              <Accordion title="Reviews">
+        {(book.reviews && book.reviews.length && (
+          <ReviewList reviews={book.reviews} onRemoveReview={onRemoveReview} />
+        )) ||
+          'No Reviews'}
+              </Accordion>
               </div>
       </section>
   )

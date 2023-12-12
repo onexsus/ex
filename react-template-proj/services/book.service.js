@@ -11,11 +11,15 @@ export const bookService = {
   remove,
   save,
   getNextBookId,
+  getPrevBookId,
   getFilterBy,
   setFilterBy,
   getDefaultFilter,
   getById,
   getEmptyBook,
+  getEmptyReview,
+  addReview,
+  removeReview,
 };
 
 function query(gFilterBy) {
@@ -49,6 +53,32 @@ function save(book) {
   }
 }
 
+function addReview(bookId, review) {
+  review.id = utilService.makeId();
+  return get(bookId)
+    .then((book) => {
+      if (book.reviews) book.reviews.push(review);
+      else book.reviews = [review];
+      return book;
+    })
+    .then(save);
+}
+
+function removeReview(bookId, reviewId) {
+  return get(bookId).then((book) => {
+    book.reviews = book.reviews.filter((review) => review.id !== reviewId);
+    return storageService.put(BOOK_KEY, book);
+  });
+}
+
+function getEmptyReview() {
+  return {
+    fullname: "",
+    rating: "",
+    readAt: "",
+  };
+}
+
 function getById(bookId) {
   return storageService.get(BOOK_KEY, bookId);
 }
@@ -64,7 +94,10 @@ function getEmptyBook(title = "", description = "") {
     description: utilService.makeLorem(20),
     pageCount: utilService.getRandomIntInclusive(20, 600),
     categories: [ctgs[utilService.getRandomIntInclusive(0, ctgs.length - 1)]],
-    thumbnail: `https://www.coding-academy.org/books-photos/${ utilService.getRandomIntInclusive(1, 20)}.jpg`,
+    thumbnail: `https://www.coding-academy.org/books-photos/${utilService.getRandomIntInclusive(
+      1,
+      20
+    )}.jpg`,
     language: "en",
     listPrice: {
       amount: 0,
@@ -95,6 +128,13 @@ function getNextBookId(bookId) {
     return books[nextbookIdx].id;
   });
 }
+function getPrevBookId(bookId) {
+  return storageService.query(BOOKS_KEY).then(books => {
+    var idx = books.findIndex(book => book.id === bookId)
+    if (idx === 0) idx = books.length
+    return books[idx - 1].id
+  })
+}
 function _createBooks() {
   let books = utilService.loadFromStorage(BOOK_KEY);
   if (!books || !books.length) {
@@ -124,7 +164,7 @@ function _createBooks() {
     }
     utilService.saveToStorage(BOOK_KEY, books);
   }
-  console.log("books", books);
+  // console.log("books", books);
 }
 // function _createBooks() {
 //     let books = utilService.loadFromStorage(BOOK_KEY)

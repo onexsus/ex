@@ -19,3 +19,16 @@
 .about-continer img{
   width: 100%;
 }
+
+.about nav a{
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  background-color: rgb(81, 130, 202);
+  border-radius: 5px;
+}
+.about nav a:hover{
+
+  background-color: rgb(104, 161, 247);
+
+}

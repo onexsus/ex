@@ -1,4 +1,5 @@
 
+import { UserMsg } from "./UserMsg.jsx"
 const { Link } = ReactRouterDOM
 
 export function AppHeader() {
@@ -13,6 +14,7 @@ export function AppHeader() {
         <Link to="/about">About</Link>
         <Link to="/books">Books</Link>
       </nav>
+      <UserMsg/>
     </div>
     </header>
   );

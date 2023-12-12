@@ -1,0 +1,19 @@
+
+
+
+
+.bookindex-continer .btn-add-book{
+  color:whitesmoke;
+  font-size: 1em;
+  font-weight: 500;
+  padding: 10px;
+  border: 1px solid whitesmoke;
+  transition: all 500ms;
+  border-radius: 1em;
+  padding: 10px;
+  background-color: rgb(91, 121, 160);
+}
+
+.bookindex-continer .btn-add-book:hover{
+  background-color: rgb(66, 85, 114);
+}

@@ -140,3 +140,13 @@ go-edit-btn */
 .btn-search:hover{
   background-color: rgb(117, 152, 204);
 }
+
+.accordion-review-add{
+  background-color:rgb(32, 57, 95);
+  grid-column: 1/-1; 
+}
+
+.accordion-reviews{
+  background-color:rgb(32, 57, 95);
+  grid-column: 1/-1; 
+}

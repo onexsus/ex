@@ -1,0 +1,17 @@
+.accordion{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.accordion hr{
+  width: 100%;
+}
+
+.accordion .title-container{
+  /* margin-bottom: 1em; */
+  cursor: pointer;
+  justify-content: center;
+}
+.accordion .title-container .arrow-icon{
+  margin-left: 1em;
+}

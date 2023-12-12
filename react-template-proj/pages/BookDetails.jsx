@@ -1,7 +1,35 @@
 
+import { bookService } from "../services/book.service.js"
+const { useParams, useNavigate, Link } = ReactRouterDOM
+const { useState, useEffect } = React
+
+export function BookDetails() {
+    const [book, setBook] = useState(null)
+    const params = useParams()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+      loadBooks()
+    }, [params.bookId])
 
 
-export function BookDetails({ book, onGoBack, onGoEdit }) {
+    function loadBooks() {
+        bookService.get(params.bookId)
+            .then(book => setBook(book))
+            .catch(err => {
+                console.log('err:', err)
+                navigate('/')
+            })
+    }
+
+    function onBack() {
+        navigate('/books')
+        // navigate(-1)
+    }
+
+    console.log('Render');
+
+    if (!book) return <div>Loading...</div>
 
 console.log(book)
 
@@ -68,8 +96,8 @@ console.log(book.listPrice.isOnSale)
                 </div>
 
                   <div className="actions-btns">
-                      <button className="go-back-btn" onClick={onGoBack}>⬅ Go Back</button>
-                      <button className="go-edit-btn" onClick={onGoEdit}>Go Edit ➡</button>
+                      <button className="go-back-btn" onClick={onBack}>⬅ Go Back</button>
+                      <Link className="go-edit-btn" to={`/books/edit/${book.id}`}>Go Edit ➡</Link>
                   </div>
               </div>
 

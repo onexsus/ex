@@ -1,3 +1,6 @@
+
+const { Link } = ReactRouterDOM
+
 import { bookService } from "../services/book.service.js";
 import { BookList } from "../cmps/BookList.jsx";
 import { BookFilter } from "../cmps/BookFilter.jsx";
@@ -56,35 +59,16 @@ function onSelectBook(bookId) {
   if (!books) return <div>Loading...</div>;
   return (
     <section className="bookindex flex flex-column align-center ">
-      {!selectedBook &&
+
       <div className="bookindex-continer">
         <BookFilter filterBy={filterBy} onSetFilter={onSetFilter} />
+        <Link to="/books/edit" className='btn-add-book'>Add Book</Link>
         <BookList
           books={books}
           onSelectBook={onSelectBook}
           onRemoveBook={onRemoveBook}
         />
       </div>
-      }
-      {selectedBook && (
-                <section>
-                    {!isEdit && (
-                        <BookDetails
-                            book={selectedBook}
-                            onGoBack={() => setSelectedBook(null)}
-                            onGoEdit={() => setIsEdit(true)}
-                        />
-                    )}
-
-                    {isEdit && (
-                        <BookEdit
-                            book={selectedBook}
-                            onUpdate={onUpdateBook}
-                            onCancelEdit={() => setIsEdit(false)}
-                        />
-                    )}
-                </section>
-            )}
     </section>
   );
 }

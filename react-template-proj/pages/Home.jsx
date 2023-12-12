@@ -1,5 +1,5 @@
 // import { UserPreview } from '../cmps/UserPreview.jsx'
-
+const { Link } = ReactRouterDOM
 export function Home() {
   return (
     <section className="home full ">
@@ -13,9 +13,11 @@ export function Home() {
           collection and a passion for tales, we invite you to discover a world
           of literary wonders unlike any other.
         </p>
-        <button className="cta-btn" onClick={() => setPage("books")}>
+       <div className="link-btn">
+         <Link to="/books" className="cta-btn" >
           Go to Store
-        </button>
+        </Link>
+        </div>
       </div>
       <div className="services-cards flex ">
         <div className="service-card flex flex-column justify-center align-center">

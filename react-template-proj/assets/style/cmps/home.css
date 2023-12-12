@@ -38,6 +38,10 @@
 }
 .hero-section p{
   font-size: 1.2em;
+  margin-bottom: 2em;
+}
+.hero-section .link-btn{
+  margin-bottom: 1em;
 }
 .hero-section .cta-btn{
   background-color: var(--clr1);
@@ -45,6 +49,7 @@
   font-weight: 600;
   color: whitesmoke;
   padding: 15px;
+  /* border-radius: 1em; */
   border: 1px solid whitesmoke;
   transition: all 500ms;
 }

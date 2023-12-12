@@ -82,6 +82,7 @@ go-edit-btn */
   padding: 10px;
   color: whitesmoke;
   background-color: rgb(91, 121, 160);
+  border-radius: 1em;
 }
 .go-edit-btn{
   font-size: 1em;
@@ -89,6 +90,7 @@ go-edit-btn */
   padding: 10px;
   color: whitesmoke;
   background-color: rgb(91, 121, 160);
+  border-radius: 1em;
 
 }
 
@@ -125,4 +127,16 @@ go-edit-btn */
 }
 .book-details-info-row span .green{
   color: green;
+}
+
+.btn-search{
+  font-size: 0.8em;
+  /* font-weight: 600; */
+  padding: 10px;
+  color: whitesmoke;
+  background-color: rgb(91, 121, 160);
+}
+
+.btn-search:hover{
+  background-color: rgb(117, 152, 204);
 }

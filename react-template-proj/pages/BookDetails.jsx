@@ -32,6 +32,24 @@ export function BookDetails() {
         navigate('/books')
         // navigate(-1)
     }
+    function onNextBook() {
+      bookService.getNextBookId(book.id).then(
+        bookId=> navigate(`/books/${bookId}`)
+      )
+      .catch(err => {
+        console.log('err:', err)
+        navigate('/')
+    })
+    }
+    function onPrevBook() {
+      bookService.getPrevBookId(book.id).then(
+        bookId=> navigate(`/books/${bookId}`)
+      )
+      .catch(err => {
+        console.log('err:', err)
+        navigate('/')
+    })
+    }
 
     function onAddReview(reviewToAdd) {
         console.log('review to add', reviewToAdd);
@@ -137,6 +155,10 @@ console.log(book.listPrice.isOnSale)
               <div className="book-details-info-row">
                   <span className="book-details-info-title">Description: </span><span className="book-details-info-text">{book.description}</span>
               </div>
+              <div className="actions-btns">
+                      <button className="go-back-btn" onClick={onPrevBook}>⬅Previous Book</button>
+                      <button className="go-back-btn" onClick={onNextBook}>Next Book ➡</button>
+                  </div>
               </div>
               <div className="accordion-review-add">
 
